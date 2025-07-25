@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState, useEffect } from "react";
+import { useCallback, useRef } from "react";
 import ReactFlow, { Background, Controls, ReactFlowInstance } from "reactflow";
 
 import "reactflow/dist/style.css";
@@ -15,11 +15,7 @@ const nodeTypes = {
   //apiNode: ApiNode,
 };
 
-interface FlowBuilderProps {
-  onFlowChange?: (nodes: any[], edges: any[]) => void;
-}
-
-export default function FlowBuilder({ onFlowChange }: FlowBuilderProps) {
+export default function FlowBuilder() {
   // Replace React Flow hooks with Zustand store
   const nodes = useFlowStore((state) => state.nodes);
   const edges = useFlowStore((state) => state.edges);
@@ -32,13 +28,6 @@ export default function FlowBuilder({ onFlowChange }: FlowBuilderProps) {
 
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
   const reactFlowInstance = useRef<ReactFlowInstance | null>(null);
-
-  // Call onFlowChange whenever nodes or edges change (preserve existing logic)
-  useEffect(() => {
-    if (onFlowChange) {
-      onFlowChange(nodes, edges);
-    }
-  }, [nodes, edges, onFlowChange]);
 
   const onNodeClick = useCallback(
     (_event: React.MouseEvent, node: any) => {
