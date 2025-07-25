@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./Navbar.css";
+import { useFlowStore } from "../store/flowStore";
 
 export default function Navbar() {
   const [showError, setShowError] = useState(false);
