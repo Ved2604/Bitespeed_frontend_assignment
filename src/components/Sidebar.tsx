@@ -2,38 +2,16 @@
 import "./Sidebar.css";
 import NodesPanel from "./NodesPanel";
 import SettingsPanel from "./SettingsPanel";
+import { useFlowStore } from "../store/flowStore";
 
-interface SidebarProps {
-  selectedNode?: {
-    id: string;
-    data: {
-      message: string;
-      label: string;
-    };
-  } | null;
-  onUpdateNode?: (newData: { message: string }) => void;
-  onClearSelection?: () => void;
-}
-
-export default function Sidebar({
-  selectedNode,
-  onUpdateNode,
-  onClearSelection,
-}: SidebarProps) {
-  // Show settings panel when a node is selected
-  const showSettings = !!selectedNode;
+// Remove all the props - we'll get everything from Zustand
+export default function Sidebar() {
+  // Get state directly from Zustand store
+  const showSettingsPanel = useFlowStore((state) => state.showSettingsPanel);
 
   return (
     <aside className="sidebar">
-      {showSettings ? (
-        <SettingsPanel
-          selectedNodeData={selectedNode?.data}
-          onClose={onClearSelection}
-          onUpdateNode={onUpdateNode}
-        />
-      ) : (
-        <NodesPanel />
-      )}
+      {showSettingsPanel ? <SettingsPanel /> : <NodesPanel />}
     </aside>
   );
 }
