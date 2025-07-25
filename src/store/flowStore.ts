@@ -132,7 +132,7 @@ export const useFlowStore = create<FlowStore>((set, get) => ({
           message: `${nodeConfig.defaultData.message} ${newMessageCount}`,
         }),
         ...(nodeConfig.defaultData.type === "call" && {
-          phoneNumber: `+123456789${newCallCount}`,
+          phoneNumber: `+123456789/${newCallCount}`,
         }),
         ...(nodeConfig.defaultData.type === "api" && {
           endpoint: `${nodeConfig.defaultData.endpoint}/${newApiCount}`,
