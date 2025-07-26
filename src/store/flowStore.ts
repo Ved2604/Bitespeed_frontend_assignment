@@ -45,11 +45,21 @@ export const useFlowStore = create<FlowStore>((set, get) => ({
     {
       id: "1",
       type: "messageNode",
-      position: { x: 250, y: 50 },
+      position: { x: 10, y: -50 },
       data: {
         type: "message",
         label: "Send Message",
         message: "text message 1",
+      },
+    },
+    {
+      id: "2",
+      type: "messageNode",
+      position: { x: 250, y: 50 },
+      data: {
+        type: "message",
+        label: "Send Message",
+        message: "text message 2",
       },
     },
   ],
@@ -58,13 +68,13 @@ export const useFlowStore = create<FlowStore>((set, get) => ({
   showSettingsPanel: false,
 
   // Preserve your counter logic
-  messageCodeCount: 1, // Start at 1 since we have initial node
+  messageCodeCount: 2, // Start at 1 since we have initial node
   callCodeCount: 0,
   apiCodeCount: 0,
 
   // Node ID tracking (from professional example)
   nodeIDs: {
-    messageNode: 1, // Since we have initial node
+    messageNode: 2, // Since we have 2 initial nodes
     callNode: 0,
     apiNode: 0,
   },
@@ -83,6 +93,24 @@ export const useFlowStore = create<FlowStore>((set, get) => ({
   },
 
   onConnect: (connection) => {
+    // Validation: Check if source handle already has an outgoing connection
+    const existingEdgeFromSource = get().edges.find(
+      (edge) =>
+        edge.source === connection.source &&
+        edge.sourceHandle === connection.sourceHandle
+    );
+
+    if (existingEdgeFromSource) {
+      alert(
+        "Connection blocked: Source handle can only have one outgoing edge"
+      );
+      console.log(
+        "Connection blocked: Source handle can only have one outgoing edge"
+      );
+      return; // Block the connection
+    }
+
+    // If validation passes, add the edge
     set({
       edges: addEdge(connection, get().edges),
     });
@@ -129,7 +157,7 @@ export const useFlowStore = create<FlowStore>((set, get) => ({
         ...nodeConfig.defaultData,
         // Your current unique identifier logic
         ...(nodeConfig.defaultData.type === "message" && {
-          message: `${nodeConfig.defaultData.message} ${newMessageCount}`,
+          message: `textNode ${newMessageCount}`,
         }),
         ...(nodeConfig.defaultData.type === "call" && {
           phoneNumber: `+123456789/${newCallCount}`,
