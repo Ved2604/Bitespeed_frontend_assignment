@@ -1,5 +1,6 @@
 // src/types/nodeRegistry.ts
-import { MessageCircleMore, Phone, Zap } from "lucide-react";
+import { MessageCircleMore } from "lucide-react";
+//import { Phone, Zap } from "lucide-react";
 
 // Node data interfaces
 export interface MessageNodeData {
