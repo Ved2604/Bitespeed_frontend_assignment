@@ -2,7 +2,7 @@
 
 A modern, extensible chatbot flow builder built with **React**, **TypeScript**, **React Flow**, and **Zustand**. Create complex chatbot workflows with an intuitive drag-and-drop interface.
 
-![Flow Builder Demo](https://via.placeholder.com/800x400/3b82f6/ffffff?text=Chatbot+Flow+Builder)
+Live Demo Link: https://bitespeed-frontend-assignment-five.vercel.app/
 
 ## Features
 
